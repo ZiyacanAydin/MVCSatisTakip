@@ -1,0 +1,33 @@
+﻿@using MVCSatisTakip.Models
+@using PagedList
+@using PagedList.Mvc
+@model  PagedList.IPagedList<tbl_Kategori>
+@{
+    ViewBag.Title = "Index";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Kategori ID</th>
+            <th>Kategori Ad</th>
+            <th>Sil</th>
+            <th>Günccelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ktg in Model)
+        {
+            <tr>
+                <td>@ktg.kategoriId</td>
+                <td>@ktg.kategoriAd</td>
+                <td><a href="/Kategori/Sil/@ktg.kategoriId" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Kategori/kategorigetir/@ktg.kategoriId" class="btn btn-info">Güncelle</a></td>
+                
+            </tr>
+
+        }
+    </tbody>
+</table>
+<a href="/Kategori/Yenikategori/" class="btn btn-info">Yeni Kategori Ekle</a>
+@Html.PagedListPager((IPagedList)Model, sayfa =>Url.Action("Index",new {sayfa}))

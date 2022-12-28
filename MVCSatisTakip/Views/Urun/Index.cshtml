@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MVCSatisTakip.Models.tbl_Urun>
+@using MVCSatisTakip.Models
+@using PagedList
+@using PagedList.Mvc
+
+<h2>Ürünlerimiz</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.urunAd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.marka)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fiyat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stok)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_Kategori.kategoriAd)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.urunAd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.marka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fiyat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stok)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tbl_Kategori.kategoriAd)
+            </td>
+            
+            <td><a href="/Urun/Sil/@item.urunId" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Urun/Urungetir/@item.urunId" class="btn btn-info">Güncelle</a></td>
+            
+        </tr>
+    }
+
+</table>
+<a href="/Urun/Urunekle/" class="btn btn-info">Yeni Urun Ekle</a>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))

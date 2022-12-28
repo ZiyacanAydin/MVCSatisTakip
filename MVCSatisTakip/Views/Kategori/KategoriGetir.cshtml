@@ -1,0 +1,21 @@
+﻿@model MVCSatisTakip.Models.tbl_Kategori
+@{
+    ViewBag.Title = "KategoriGetir";
+}
+
+@using (Html.BeginForm("Guncelle", "Kategori", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.kategoriId)
+        @Html.TextBoxFor(m => m.kategoriId, new { @class = "form-control", @readonly = "readonly" })
+
+        @Html.LabelFor(m => m.kategoriAd)
+        @Html.TextBoxFor(m => m.kategoriAd, new { @class = "form-control" })
+
+
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Kategori Güncelle</button>
+    </div>
+}
+

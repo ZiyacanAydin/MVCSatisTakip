@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SatisTakipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Kategori">
+          <Key>
+            <PropertyRef Name="kategoriId" />
+          </Key>
+          <Property Name="kategoriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoriAd" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbl_Musteri">
+          <Key>
+            <PropertyRef Name="musteriId" />
+          </Key>
+          <Property Name="musteriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="musteriAd" Type="varchar" MaxLength="30" />
+          <Property Name="musteriTel" Type="varchar" MaxLength="20" />
+          <Property Name="musteriTc" Type="varchar" MaxLength="11" />
+          <Property Name="musteriAdres" Type="text" />
+          <Property Name="musteriMeslek" Type="varchar" MaxLength="30" />
+          <Property Name="musteriSehir" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tbl_Satis">
+          <Key>
+            <PropertyRef Name="satisId" />
+          </Key>
+          <Property Name="satisId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="satisFiyat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="satisAdet" Type="int" />
+          <Property Name="satisTarih" Type="smalldatetime" />
+          <Property Name="urunId" Type="int" />
+          <Property Name="musteriId" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Urun">
+          <Key>
+            <PropertyRef Name="urunId" />
+          </Key>
+          <Property Name="urunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoriId" Type="int" />
+          <Property Name="urunAd" Type="varchar" MaxLength="30" />
+          <Property Name="marka" Type="varchar" MaxLength="30" />
+          <Property Name="fiyat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="stok" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="30" />
+          <Property Name="userPassword" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK_tbl_Satis_tbl_Musteri">
+          <End Role="tbl_Musteri" Type="Self.tbl_Musteri" Multiplicity="0..1" />
+          <End Role="tbl_Satis" Type="Self.tbl_Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Musteri">
+              <PropertyRef Name="musteriId" />
+            </Principal>
+            <Dependent Role="tbl_Satis">
+              <PropertyRef Name="musteriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Satis_tbl_Urun">
+          <End Role="tbl_Urun" Type="Self.tbl_Urun" Multiplicity="0..1" />
+          <End Role="tbl_Satis" Type="Self.tbl_Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Urun">
+              <PropertyRef Name="urunId" />
+            </Principal>
+            <Dependent Role="tbl_Satis">
+              <PropertyRef Name="urunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Urun_tbl_Kategori">
+          <End Role="tbl_Kategori" Type="Self.tbl_Kategori" Multiplicity="0..1" />
+          <End Role="tbl_Urun" Type="Self.tbl_Urun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="tbl_Urun">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SatisTakipModelStoreContainer">
+          <EntitySet Name="tbl_Kategori" EntityType="Self.tbl_Kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Musteri" EntityType="Self.tbl_Musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Satis" EntityType="Self.tbl_Satis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Urun" EntityType="Self.tbl_Urun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_User" EntityType="Self.tbl_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_Satis_tbl_Musteri" Association="Self.FK_tbl_Satis_tbl_Musteri">
+            <End Role="tbl_Musteri" EntitySet="tbl_Musteri" />
+            <End Role="tbl_Satis" EntitySet="tbl_Satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Satis_tbl_Urun" Association="Self.FK_tbl_Satis_tbl_Urun">
+            <End Role="tbl_Urun" EntitySet="tbl_Urun" />
+            <End Role="tbl_Satis" EntitySet="tbl_Satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Urun_tbl_Kategori" Association="Self.FK_tbl_Urun_tbl_Kategori">
+            <End Role="tbl_Kategori" EntitySet="tbl_Kategori" />
+            <End Role="tbl_Urun" EntitySet="tbl_Urun" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SatisTakipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Kategori">
+          <Key>
+            <PropertyRef Name="kategoriId" />
+          </Key>
+          <Property Name="kategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriAd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Urun" Relationship="Self.FK_tbl_Urun_tbl_Kategori" FromRole="tbl_Kategori" ToRole="tbl_Urun" />
+        </EntityType>
+        <EntityType Name="tbl_Musteri">
+          <Key>
+            <PropertyRef Name="musteriId" />
+          </Key>
+          <Property Name="musteriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="musteriAd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="musteriTel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="musteriTc" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="musteriAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="musteriMeslek" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="musteriSehir" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Satis" Relationship="Self.FK_tbl_Satis_tbl_Musteri" FromRole="tbl_Musteri" ToRole="tbl_Satis" />
+        </EntityType>
+        <EntityType Name="tbl_Satis">
+          <Key>
+            <PropertyRef Name="satisId" />
+          </Key>
+          <Property Name="satisId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="satisFiyat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="satisAdet" Type="Int32" />
+          <Property Name="satisTarih" Type="DateTime" Precision="0" />
+          <Property Name="urunId" Type="Int32" />
+          <Property Name="musteriId" Type="Int32" />
+          <NavigationProperty Name="tbl_Musteri" Relationship="Self.FK_tbl_Satis_tbl_Musteri" FromRole="tbl_Satis" ToRole="tbl_Musteri" />
+          <NavigationProperty Name="tbl_Urun" Relationship="Self.FK_tbl_Satis_tbl_Urun" FromRole="tbl_Satis" ToRole="tbl_Urun" />
+        </EntityType>
+        <EntityType Name="tbl_Urun">
+          <Key>
+            <PropertyRef Name="urunId" />
+          </Key>
+          <Property Name="urunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriId" Type="Int32" />
+          <Property Name="urunAd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="marka" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fiyat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="stok" Type="Int32" />
+          <NavigationProperty Name="tbl_Kategori" Relationship="Self.FK_tbl_Urun_tbl_Kategori" FromRole="tbl_Urun" ToRole="tbl_Kategori" />
+          <NavigationProperty Name="tbl_Satis" Relationship="Self.FK_tbl_Satis_tbl_Urun" FromRole="tbl_Urun" ToRole="tbl_Satis" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="userPassword" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tbl_Urun_tbl_Kategori">
+          <End Role="tbl_Kategori" Type="Self.tbl_Kategori" Multiplicity="0..1" />
+          <End Role="tbl_Urun" Type="Self.tbl_Urun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="tbl_Urun">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Satis_tbl_Musteri">
+          <End Role="tbl_Musteri" Type="Self.tbl_Musteri" Multiplicity="0..1" />
+          <End Role="tbl_Satis" Type="Self.tbl_Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Musteri">
+              <PropertyRef Name="musteriId" />
+            </Principal>
+            <Dependent Role="tbl_Satis">
+              <PropertyRef Name="musteriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Satis_tbl_Urun">
+          <End Role="tbl_Urun" Type="Self.tbl_Urun" Multiplicity="0..1" />
+          <End Role="tbl_Satis" Type="Self.tbl_Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Urun">
+              <PropertyRef Name="urunId" />
+            </Principal>
+            <Dependent Role="tbl_Satis">
+              <PropertyRef Name="urunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SatisTakipEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Kategori" EntityType="Self.tbl_Kategori" />
+          <EntitySet Name="tbl_Musteri" EntityType="Self.tbl_Musteri" />
+          <EntitySet Name="tbl_Satis" EntityType="Self.tbl_Satis" />
+          <EntitySet Name="tbl_Urun" EntityType="Self.tbl_Urun" />
+          <EntitySet Name="tbl_User" EntityType="Self.tbl_User" />
+          <AssociationSet Name="FK_tbl_Urun_tbl_Kategori" Association="Self.FK_tbl_Urun_tbl_Kategori">
+            <End Role="tbl_Kategori" EntitySet="tbl_Kategori" />
+            <End Role="tbl_Urun" EntitySet="tbl_Urun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Satis_tbl_Musteri" Association="Self.FK_tbl_Satis_tbl_Musteri">
+            <End Role="tbl_Musteri" EntitySet="tbl_Musteri" />
+            <End Role="tbl_Satis" EntitySet="tbl_Satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Satis_tbl_Urun" Association="Self.FK_tbl_Satis_tbl_Urun">
+            <End Role="tbl_Urun" EntitySet="tbl_Urun" />
+            <End Role="tbl_Satis" EntitySet="tbl_Satis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SatisTakipModelStoreContainer" CdmEntityContainer="SatisTakipEntities">
+          <EntitySetMapping Name="tbl_Kategori">
+            <EntityTypeMapping TypeName="SatisTakipModel.tbl_Kategori">
+              <MappingFragment StoreEntitySet="tbl_Kategori">
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+                <ScalarProperty Name="kategoriAd" ColumnName="kategoriAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Musteri">
+            <EntityTypeMapping TypeName="SatisTakipModel.tbl_Musteri">
+              <MappingFragment StoreEntitySet="tbl_Musteri">
+                <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+                <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+                <ScalarProperty Name="musteriTel" ColumnName="musteriTel" />
+                <ScalarProperty Name="musteriTc" ColumnName="musteriTc" />
+                <ScalarProperty Name="musteriAdres" ColumnName="musteriAdres" />
+                <ScalarProperty Name="musteriMeslek" ColumnName="musteriMeslek" />
+                <ScalarProperty Name="musteriSehir" ColumnName="musteriSehir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Satis">
+            <EntityTypeMapping TypeName="SatisTakipModel.tbl_Satis">
+              <MappingFragment StoreEntitySet="tbl_Satis">
+                <ScalarProperty Name="satisId" ColumnName="satisId" />
+                <ScalarProperty Name="satisFiyat" ColumnName="satisFiyat" />
+                <ScalarProperty Name="satisAdet" ColumnName="satisAdet" />
+                <ScalarProperty Name="satisTarih" ColumnName="satisTarih" />
+                <ScalarProperty Name="urunId" ColumnName="urunId" />
+                <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Urun">
+            <EntityTypeMapping TypeName="SatisTakipModel.tbl_Urun">
+              <MappingFragment StoreEntitySet="tbl_Urun">
+                <ScalarProperty Name="urunId" ColumnName="urunId" />
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+                <ScalarProperty Name="urunAd" ColumnName="urunAd" />
+                <ScalarProperty Name="marka" ColumnName="marka" />
+                <ScalarProperty Name="fiyat" ColumnName="fiyat" />
+                <ScalarProperty Name="stok" ColumnName="stok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_User">
+            <EntityTypeMapping TypeName="SatisTakipModel.tbl_User">
+              <MappingFragment StoreEntitySet="tbl_User">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
