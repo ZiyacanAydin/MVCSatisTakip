@@ -16,6 +16,7 @@ namespace MVCSatisTakip.Controllers
         public ActionResult Index(int sayfa=1)
         {
             var urunler = db.tbl_Urun.ToList().ToPagedList(sayfa, 7);
+            
             return View(urunler);
         }
         public ActionResult Urunekle() 
@@ -51,5 +52,37 @@ namespace MVCSatisTakip.Controllers
                 return RedirectToAction("Index");
             }
         }
-    }
+        public ActionResult Sil(int id)
+        {
+            var urun = db.tbl_Urun.Find(id);
+            db.tbl_Urun.Remove(urun);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult urungetir(int id)
+        {
+            var urun = db.tbl_Urun.Find(id);
+            List<SelectListItem> urungetir = (from i in db.tbl_Kategori.ToList()
+                                                select new SelectListItem
+                                                {
+                                                    Text = i.kategoriAd,
+                                                    Value = i.kategoriId.ToString(),
+                                                }).ToList();
+            ViewBag.ktgr = urungetir;
+            return View("urungetir",urun);
+        }
+        public ActionResult Guncelle(tbl_Urun p)
+        {
+            var urn = db.tbl_Urun.Find(p.urunId);
+            urn.urunAd = p.urunAd;
+            urn.marka = p.marka;
+            urn.stok = p.stok;
+            urn.fiyat = p.fiyat;
+
+            var ktg = db.tbl_Kategori.Where(m => m.kategoriId == p.tbl_Kategori.kategoriId).FirstOrDefault();
+            urn.kategoriId = ktg.kategoriId;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }       
+    }  
 }

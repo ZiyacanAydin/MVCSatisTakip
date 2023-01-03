@@ -1,0 +1,35 @@
+﻿@model MVCSatisTakip.Models.tbl_Urun
+@{
+    ViewBag.Title = "urungetir";
+}
+
+<h2>Ürün Güncelle</h2>
+
+@using (Html.BeginForm("Guncelle", "Urun", FormMethod.Post))
+ {
+    <div class="form-group">
+        @Html.LabelFor(m => m.urunId)
+        @Html.TextBoxFor(m => m.urunId, new { @class = "form-control", @readonly = "readonly" })
+
+        @Html.LabelFor(m => m.urunAd)
+        @Html.TextBoxFor(m => m.urunAd, new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.marka)
+        @Html.TextBoxFor(m => m.marka, new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.stok)
+        @Html.TextBoxFor(m => m.stok, new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.fiyat)
+        @Html.TextBoxFor(m => m.fiyat, new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.tbl_Kategori.kategoriAd)
+        @Html.DropDownListFor(m => m.tbl_Kategori.kategoriId, (List<SelectListItem>)ViewBag.ktgr, new { @class = "form-control" })
+
+
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-danger">Müşteri Güncelle</button>
+    </div>
+ }
+

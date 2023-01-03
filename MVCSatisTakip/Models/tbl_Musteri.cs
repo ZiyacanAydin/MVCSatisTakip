@@ -11,7 +11,8 @@ namespace MVCSatisTakip.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_Musteri
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,13 +22,20 @@ namespace MVCSatisTakip.Models
         }
     
         public int musteriId { get; set; }
+        [Required(ErrorMessage ="Girilmesi zorunludur")]
         public string musteriAd { get; set; }
+        [Required(ErrorMessage = "Girilmesi zorunludur")]
         public string musteriTel { get; set; }
+        [Required(ErrorMessage = "Girilmesi zorunludur")]
         public string musteriTc { get; set; }
+        [Required(ErrorMessage = "Girilmesi zorunludur")]
         public string musteriAdres { get; set; }
+        [Required(ErrorMessage = "Girilmesi zorunludur")]
         public string musteriMeslek { get; set; }
+        [Required(ErrorMessage = "Girilmesi zorunludur")]
         public string musteriSehir { get; set; }
-    
+        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Satis> tbl_Satis { get; set; }
     }

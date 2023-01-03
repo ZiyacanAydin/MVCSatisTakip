@@ -26,7 +26,7 @@ namespace MVCSatisTakip.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("MusteriEkle");
+                return View();
             }
             var must = db.tbl_Musteri.Add(p1);
             db.SaveChanges();

@@ -6,28 +6,28 @@
 <h2>Urun ekle</h2>
 <form method="post" class="form-group">
     <div>
-        <label>Müşteri TC</label>
+        <label>Urun ad</label>
         @Html.TextBoxFor(m => m.urunAd, new { @class = "form-control" })
     
     
-        <label>Müşteri Adı Soyadı</label>
+        <label>Marka</label>
         @Html.TextBoxFor(m => m.marka, new { @class = "form-control" })
    
     
-        <label>Müşter Mesleği</label>
+        <label>Fiyat</label>
         @Html.TextBoxFor(m => m.fiyat, new { @class = "form-control" })
     
     
-        <label>Şehir</label>
+        <label>Stok</label>
         @Html.TextBoxFor(m => m.stok, new { @class = "form-control" })
    
     
-        <label>Şehir</label>
+        <label>Kategori</label>
         @Html.DropDownListFor(m => m.tbl_Kategori.kategoriId,(List<SelectListItem>)ViewBag.ktgr, new { @class = "form-control" })
     </div>
     
     <div style="margin-top:15px">
-        <button class="btn btn-success">Musteri Ekle</button>
+        <button class="btn btn-success">Ürün Ekle</button>
     </div>
 </form>
 

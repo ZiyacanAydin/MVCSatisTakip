@@ -6,26 +6,32 @@
     <div>
         <label>Müşteri TC</label>
         @Html.TextBoxFor(m => m.musteriTc, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.musteriTc,"", new { @class = "text-danger", @type="number"})
     </div>
     <div>
         <label>Müşteri Adı Soyadı</label>
         @Html.TextBoxFor(m => m.musteriAd, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.musteriAd, "", new { @class = "text-danger" })
     </div>
     <div>
         <label>Müşter Mesleği</label>
         @Html.TextBoxFor(m => m.musteriMeslek, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.musteriMeslek, "", new { @class = "text-danger" })
     </div>
     <div>
         <label>Şehir</label>
         @Html.TextBoxFor(m => m.musteriSehir, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.musteriSehir, "", new { @class = "text-danger" })
     </div>
     <div>
         <label>Telefon</label>
         @Html.TextBoxFor(m => m.musteriTel, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.musteriTel, "", new { @style="color:red", @type="number" })
     </div>
     <div>
         <label>Müşteri Adresi</label>
         @Html.TextBoxFor(m => m.musteriAdres, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.musteriAdres, "", new { @class = "text-danger" })
     </div>
     <div style="margin-top:15px">
         <button class="btn btn-success">Musteri Ekle</button>

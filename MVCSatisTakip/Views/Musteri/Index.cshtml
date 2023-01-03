@@ -6,7 +6,12 @@
     ViewBag.Title = "Index";
 }
 
-
+<style>
+    table {
+        background-image: url('../../1.jpg');
+        background-size: cover;
+    }
+</style>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -32,7 +37,7 @@
                 <td>@mus.musteriSehir</td>
                 <td>@mus.musteriTel</td>
                 <td>@mus.musteriAdres</td>
-                <td><a href="/Musteri/Sil/@mus.musteriId" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Musteri/Sil/@mus.musteriId" class="btn btn-danger" id="sil">Sil</a></td>
                 <td><a href="/Musteri/musterigetir/@mus.musteriId" class="btn btn-info">Güncelle</a></td>
 
             </tr>
@@ -42,5 +47,29 @@
 </table>
 <a href="/Musteri/MusteriEkle/" class="btn btn-info">Yeni Müşteri Ekle</a>
 @Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+<script>
+    $('#tbl').dataTable();
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $("#sil").click(function () {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+    })
+</script>
 
 
